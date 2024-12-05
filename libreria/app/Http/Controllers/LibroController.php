@@ -12,7 +12,7 @@ class LibroController extends Controller
      */
     public function index()
     {
-        //
+        return view('libros.index', ['libros' => Libro::all()]);
     }
 
     /**
@@ -20,7 +20,7 @@ class LibroController extends Controller
      */
     public function create()
     {
-        //
+        return view('libros.create');
     }
 
     /**
@@ -28,7 +28,14 @@ class LibroController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'numero' => 'required',
+            'titulo' => 'required',
+            'autor' => 'required|max:255'
+        ]);
+        Libro::create($request->all());
+        return redirect()->route('libros.index');
+
     }
 
     /**
