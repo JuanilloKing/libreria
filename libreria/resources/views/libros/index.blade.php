@@ -36,8 +36,16 @@
                                             {{ $libro->precio }}
                                         </td>
                                         <td class="px-6 py-4 text-right">
-                                            <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
-                                            <a href="#" class="font-medium text-red-600 dark:text-blue-500 hover:underline">Eliminar</a>
+                                            <a href="{{route('libros.edit', $libro)}}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Editar</a>
+                                            <form method="POST" action="{{ route('libros.destroy', $libro) }}">
+                                                @method('DELETE')
+                                                @csrf
+                                                <a href="{{ route('libros.destroy', $libro) }}"
+                                                    class="font-medium text-red-600 dark:text-red-500 hover:underline ms-3"
+                                                    onclick="event.preventDefault(); if (confirm('¿Está seguro?')) this.closest('form').submit();">
+                                                    Eliminar
+                                                </a>
+                                            </form>                                        
                                         </td>
                                     </tr>
                                 @endforeach
